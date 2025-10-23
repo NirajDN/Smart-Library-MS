@@ -125,92 +125,87 @@ export default function BooksManagement() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <main className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Header */}
         <div className="flex justify-between items-center mb-10">
           <div>
-            <h1 className="text-4xl font-bold text-zinc-800 mb-1">Books Management</h1>
-            <p className="text-gray-600">Add, search, and manage your library collection</p>
+            <h1 className="text-4xl font-bold text-foreground mb-1">Books Management</h1>
+            <p className="text-muted-foreground">Add, search, and manage your library collection</p>
           </div>
 
           <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
             <DialogTrigger asChild>
-              <Button className="bg-indigo-400 text-white hover:bg-indigo-600">
+              <Button>
                 <Plus className="h-4 w-4 mr-2" />
                 Add Book
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-md bg-white border border-gray-200 shadow-xl rounded-lg p-8">
+            <DialogContent className="max-w-md">
               <DialogHeader>
-                <DialogTitle className="text-xl font-semibold">Add New Book</DialogTitle>
-                <DialogDescription className="text-sm text-gray-500">
+                <DialogTitle>Add New Book</DialogTitle>
+                <DialogDescription>
                   Enter book details below to add it to the library
                 </DialogDescription>
               </DialogHeader>
               <form onSubmit={handleAddBook} className="space-y-4 mt-6">
                 <div className="space-y-2">
-                  <Label htmlFor="title" className="text-sm font-medium text-neutral-900">Title</Label>
+                  <Label htmlFor="title">Title</Label>
                   <Input
                     id="title"
                     value={bookForm.title}
                     onChange={(e) =>
                       setBookForm({ ...bookForm, title: e.target.value })
                     }
-                    className="border-neutral-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 rounded-lg shadow-sm"
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="author" className="text-sm font-medium text-neutral-900">Author</Label>
+                  <Label htmlFor="author">Author</Label>
                   <Input
                     id="author"
                     value={bookForm.author}
                     onChange={(e) =>
                       setBookForm({ ...bookForm, author: e.target.value })
                     }
-                    className="border-neutral-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 rounded-lg shadow-sm"
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="isbn" className="text-sm font-medium text-neutral-900">ISBN</Label>
+                  <Label htmlFor="isbn">ISBN</Label>
                   <Input
                     id="isbn"
                     value={bookForm.isbn}
                     onChange={(e) =>
                       setBookForm({ ...bookForm, isbn: e.target.value })
                     }
-                    className="border-neutral-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 rounded-lg shadow-sm"
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="category" className="text-sm font-medium text-neutral-900">Category</Label>
+                  <Label htmlFor="category">Category</Label>
                   <Input
                     id="category"
                     value={bookForm.category}
                     onChange={(e) =>
                       setBookForm({ ...bookForm, category: e.target.value })
                     }
-                    className="border-neutral-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 rounded-lg shadow-sm"
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="description" className="text-sm font-medium text-neutral-900">Description</Label>
+                  <Label htmlFor="description">Description</Label>
                   <Input
                     id="description"
                     value={bookForm.description}
                     onChange={(e) =>
                       setBookForm({ ...bookForm, description: e.target.value })
                     }
-                    className="border-neutral-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 rounded-lg shadow-sm"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="imageUrl" className="text-sm font-medium text-neutral-900">Image URL</Label>
+                  <Label htmlFor="imageUrl">Image URL</Label>
                   <Input
                     id="imageUrl"
                     type="url"
@@ -219,12 +214,11 @@ export default function BooksManagement() {
                     onChange={(e) =>
                       setBookForm({ ...bookForm, imageUrl: e.target.value })
                     }
-                    className="border-neutral-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 rounded-lg shadow-sm"
                   />
-                  <p className="text-xs text-gray-500">Paste the image URL from Amazon or other book websites</p>
+                  <p className="text-xs text-muted-foreground">Paste the image URL from Amazon or other book websites</p>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="quantity" className="text-sm font-medium text-neutral-900">Quantity</Label>
+                  <Label htmlFor="quantity">Quantity</Label>
                   <Input
                     id="quantity"
                     type="number"
@@ -236,13 +230,12 @@ export default function BooksManagement() {
                         quantity: e.target.value === "" ? 0 : parseInt(e.target.value, 10),
                       })
                     }
-                    className="border-neutral-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 rounded-lg shadow-sm"
                     required
                   />
                 </div>
                 <Button
                   type="submit"
-                  className="w-full bg-indigo-500 text-white hover:bg-indigo-600 transition-colors mt-4"
+                  className="w-full"
                 >
                   Add Book
                 </Button>
@@ -254,12 +247,11 @@ export default function BooksManagement() {
         {/* Search */}
         <div className="mb-8">
           <div className="relative max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
               placeholder="Search books..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 focus:ring-2 focus:ring-zinc-800"
             />
           </div>
         </div>
@@ -269,15 +261,14 @@ export default function BooksManagement() {
           {books.map((book) => (
             <Card
               key={book.id}
-              className="border border-zinc-200 rounded-lg shadow-sm hover:shadow-md transition"
             >
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
-                    <CardTitle className="text-lg font-semibold text-zinc-800">
+                    <CardTitle className="text-lg font-semibold text-foreground">
                       {book.title}
                     </CardTitle>
-                    <CardDescription className="text-gray-600">
+                    <CardDescription className="text-muted-foreground">
                       by {book.author}
                     </CardDescription>
                   </div>
@@ -285,7 +276,7 @@ export default function BooksManagement() {
                     variant="ghost"
                     size="icon"
                     onClick={() => handleDeleteBook(book.id)}
-                    className="text-red-600 hover:text-red-700"
+                    className="text-destructive hover:text-destructive"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -307,8 +298,8 @@ export default function BooksManagement() {
               )}
               <CardContent className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <Book className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm text-gray-700">ISBN: {book.isbn}</span>
+                  <Book className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm">ISBN: {book.isbn}</span>
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge variant="secondary" className="text-xs break-words whitespace-normal max-w-full">
@@ -322,24 +313,24 @@ export default function BooksManagement() {
                   </Badge>
                 </div>
                 {book.description && (
-                  <p className="text-sm text-gray-600">{book.description}</p>
+                  <p className="text-sm text-muted-foreground">{book.description}</p>
                 )}
                 <div className="space-y-1">
-                  <p className="text-xs text-gray-500 font-medium">Available Copy IDs:</p>
+                  <p className="text-xs text-muted-foreground font-medium">Available Copy IDs:</p>
                   <div className="flex flex-wrap gap-1">
                     {book.copies
                       .filter(copy => copy.status === 'AVAILABLE')
                       .map((copy) => (
-                        <span 
+                        <span
                           key={copy.id}
-                          className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded border"
+                          className="text-xs bg-muted text-foreground px-2 py-1 rounded border"
                         >
                           {copy.id}
                         </span>
                       ))
                     }
                     {book.copies.filter(copy => copy.status === 'AVAILABLE').length === 0 && (
-                      <span className="text-xs text-gray-400 italic">No copies available</span>
+                      <span className="text-xs text-muted-foreground italic">No copies available</span>
                     )}
                   </div>
                 </div>
@@ -350,8 +341,8 @@ export default function BooksManagement() {
 
         {books.length === 0 && (
           <div className="text-center py-12">
-            <Book className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500">No books found</p>
+            <Book className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <p className="text-muted-foreground">No books found</p>
           </div>
         )}
       </div>

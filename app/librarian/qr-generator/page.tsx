@@ -110,28 +110,28 @@ export default function QRGenerator() {
   }, [qrType])
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">QR Code Generator</h1>
-          <p className="text-gray-600">Generate QR codes for books and users</p>
+          <h1 className="text-3xl font-bold text-foreground">QR Code Generator</h1>
+          <p className="text-muted-foreground">Generate QR codes for books and users</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Generator Form */}
-          <Card className="bg-white border border-gray-200 shadow-sm rounded-xl p-6">
+          <Card>
             <CardHeader>
               <CardTitle>Generate QR Code</CardTitle>
               <CardDescription>Create QR codes for quick scanning operations</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label className="mb-2" htmlFor="type">QR Code Type</Label>
+                <Label htmlFor="type">QR Code Type</Label>
                 <Select value={qrType} onValueChange={(value: 'book' | 'user') => setQrType(value)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent  className="bg-white border border-gray-200 shadow-lg rounded-md p-2">
+                  <SelectContent>
                     <SelectItem value="book">Book</SelectItem>
                     <SelectItem value="user">User</SelectItem>
                   </SelectContent>
@@ -140,12 +140,12 @@ export default function QRGenerator() {
 
               {qrType === 'book' ? (
                 <div>
-                  <Label className="mb-2" htmlFor="book">Select Book</Label>
+                  <Label htmlFor="book">Select Book</Label>
                   <Select value={selectedId} onValueChange={setSelectedId}>
                     <SelectTrigger>
-                      <SelectValue className="" placeholder="Choose a book" />
+                      <SelectValue placeholder="Choose a book" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white border border-gray-200 shadow-lg rounded-md p-2">
+                    <SelectContent>
                       {books.map((book) => (
                         <SelectItem key={book.id} value={book.id}>
                           {book.id}
@@ -156,12 +156,12 @@ export default function QRGenerator() {
                 </div>
               ) : (
                 <div>
-                  <Label className="mb-2" htmlFor="user">Select User</Label>
+                  <Label htmlFor="user">Select User</Label>
                   <Select value={selectedId} onValueChange={setSelectedId}>
                     <SelectTrigger>
                       <SelectValue placeholder="Choose a user" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white border border-gray-200 shadow-lg rounded-md p-2">
+                    <SelectContent>
                       {users.map((user) => (
                         <SelectItem key={user.id} value={user.id}>
                           {user.name} ({user.studentId})
@@ -172,7 +172,7 @@ export default function QRGenerator() {
                 </div>
               )}
 
-              <Button onClick={generateQRCode} disabled={loading || !selectedId} className="w-full bg-zinc-800 text-white">
+              <Button onClick={generateQRCode} disabled={loading || !selectedId} className="w-full">
                 {loading ? 'Generating...' : (
                   <>
                     <QrCode className="h-4 w-4 mr-2" />
@@ -184,7 +184,7 @@ export default function QRGenerator() {
           </Card>
 
           {/* QR Code Display */}
-          <Card className="bg-white border border-gray-200 shadow-sm rounded-xl p-6">
+          <Card>
             <CardHeader>
               <CardTitle>Generated QR Code</CardTitle>
               <CardDescription>
@@ -195,7 +195,7 @@ export default function QRGenerator() {
               {qrCodeUrl ? (
                 <div className="text-center space-y-4">
                   <div className="flex justify-center">
-                    <div className="border rounded-lg p-4 bg-white inline-block">
+                    <div className="border rounded-lg p-4 bg-card inline-block">
                       <Image src={qrCodeUrl} alt="Generated QR Code" width={256} height={256} />
                     </div>
                   </div>
@@ -206,8 +206,8 @@ export default function QRGenerator() {
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <QrCode className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                  <p className="text-gray-500">Generate a QR code to see it here</p>
+                  <QrCode className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                  <p className="text-muted-foreground">Generate a QR code to see it here</p>
                 </div>
               )}
             </CardContent>
@@ -215,27 +215,27 @@ export default function QRGenerator() {
         </div>
 
         {/* Usage Instructions */}
-        <Card className="bg-white border border-gray-200 shadow-sm rounded-xl p-6 mt-8">
+        <Card className="mt-8">
           <CardHeader>
             <CardTitle>Usage Instructions</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div>
-                <h4 className="font-medium mb-2">Book QR Codes</h4>
-                <p className="text-sm text-gray-600">
+                <h4 className="font-medium text-foreground mb-2">Book QR Codes</h4>
+                <p className="text-sm text-muted-foreground">
                   Use book QR codes for quick issue and return operations. These can be printed and attached to books.
                 </p>
               </div>
               <div>
-                <h4 className="font-medium mb-2">User QR Codes</h4>
-                <p className="text-sm text-gray-600">
+                <h4 className="font-medium text-foreground mb-2">User QR Codes</h4>
+                <p className="text-sm text-muted-foreground">
                   User QR codes can be printed on student ID cards for quick identification during book issues.
                 </p>
               </div>
               <div>
-                <h4 className="font-medium mb-2">Quick Operations</h4>
-                <p className="text-sm text-gray-600">
+                <h4 className="font-medium text-foreground mb-2">Quick Operations</h4>
+                <p className="text-sm text-muted-foreground">
                   For quick issue: First scan user QR, then scan book QR. For quick return: Scan book QR only.
                 </p>
               </div>
@@ -243,6 +243,6 @@ export default function QRGenerator() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </main>
   )
 }

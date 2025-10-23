@@ -26,27 +26,13 @@ interface BookIssue {
   }
 }
 
-interface RecommendationItem {
-  id: string
-  title: string
-  author: string
-  isbn: string
-  category: string
-  description?: string | null
-  available: number
-  quantity: number
-  reason: string
-}
-
 export default function UserDashboard() {
   const [bookIssues, setBookIssues] = useState<BookIssue[]>([])
   const [user, setUser] = useState<{ fine: number } | null>(null)
-  const [recommendations, setRecommendations] = useState<RecommendationItem[]>([])
 
   useEffect(() => {
     fetchMyBooks()
     fetchUser()
-    fetchRecommendations()
   }, [])
 
   const fetchMyBooks = async () => {
@@ -58,18 +44,6 @@ export default function UserDashboard() {
       }
     } catch (error) {
       console.error('Failed to fetch books:', error)
-    }
-  }
-
-  const fetchRecommendations = async () => {
-    try {
-      const response = await fetch('/api/users/recommendations')
-      if (response.ok) {
-        const data = await response.json()
-        setRecommendations(data.recommendations || [])
-      }
-    } catch (error) {
-      console.error('Failed to fetch recommendations:', error)
     }
   }
 
@@ -221,59 +195,8 @@ export default function UserDashboard() {
           </CardContent>
         </Card>
 
-        {/* Recommendations */}
-        <Card className="shadow-md mb-12">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <div>
-              <CardTitle className="text-lg font-semibold text-zinc-800">
-                Recommended For You
-              </CardTitle>
-              <CardDescription className="text-gray-600">
-                Suggestions based on your borrowing history.
-              </CardDescription>
-            </div>
-          </CardHeader>
-          <CardContent>
-            {recommendations.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {recommendations.map((rec) => (
-                  <Card key={rec.id} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <CardTitle className="text-lg font-bold text-indigo-800">{rec.title}</CardTitle>
-                      <CardDescription>by {rec.author}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                          <Book className="h-4 w-4 text-gray-500" />
-                          <span className="text-sm text-gray-600">ISBN: {rec.isbn}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className="inline-flex items-center rounded bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5">
-                            {rec.category}
-                          </span>
-                        </div>
-                        {rec.description && (
-                          <div className="flex items-center gap-2 mt-2">
-                            <span className="inline-flex items-center rounded bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5">
-                              {rec.description}
-                            </span>
-                          </div>
-                        )}
-                        <p className="text-xs text-gray-600 italic">{rec.reason}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            ) : (
-              <p className="text-gray-500">No recommendations yet. Borrow some books to get suggestions.</p>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* Book Search */}
-        <Card className="shadow-md">
+        {/* Library Books Search */}
+        <Card className="shadow-md bg-card">
           <CardHeader>
             <CardTitle className="text-lg font-semibold text-foreground">
               Library Books

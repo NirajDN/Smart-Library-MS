@@ -23,7 +23,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
       <NavbarSection/>
       <HeroSection/>
       <FeatureSection/>
